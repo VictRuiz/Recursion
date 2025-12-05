@@ -1,0 +1,29 @@
+// merge_sort.js
+// Implementación de merge sort (recursiva). Devuelve una nueva lista ordenada.
+
+function merge(left, right) {
+  const result = [];
+  let i = 0, j = 0;
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      result.push(left[i++]);
+    } else {
+      result.push(right[j++]);
+    }
+  }
+  // anexar restos
+  while (i < left.length) result.push(left[i++]);
+  while (j < right.length) result.push(right[j++]);
+  return result;
+}
+
+function mergeSort(arr) {
+  if (!Array.isArray(arr)) throw new TypeError('mergeSort espera un arreglo');
+  if (arr.length <= 1) return arr.slice();
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+
+module.exports = { mergeSort };
